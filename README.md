@@ -23,14 +23,14 @@ A site on which you can search for movies and shows from the IMDB API and save s
 - On the history page, users can remove listings in case they pushed them there by accident
 
 ## HTTP Routes
-  post('/users/signup', ...)        // signup user
-  post('/users/login', ...)         // login user
-  post('/users/verify, ...)         // verify user
-   get('/viewings', ...)            // search shows and series
-  post('/viewings/save', ...)       // save listing to profile
-  post('/viewings/watch', ...)      // move listing to history page
-delete('/viewings/remove', ...)     // remove listing from profile
-// add a PUT here
+  post('/users/signup', ...)        // 1, signup user
+  post('/users/login', ...)         // 2, login user
+  post('/users/verify, ...)         // 3, verify user
+   put('/users/bio, ...)            // 4, update user's bio
+   get('/viewings', ...)            // 5, search shows and series
+  post('/viewings/save', ...)       // 6, save listing to profile
+  post('/viewings/watch', ...)      // 7, move listing to history page
+delete('/viewings/remove', ...)     // 8, remove listing from profile
 
 ## Completion timeline
 - Finish Signup, Login, and backend server by EOD Monday
