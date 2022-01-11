@@ -2,12 +2,11 @@ import axios from 'axios';
 import { useState } from 'react'
 import Global from '../components/Global';
 
-const HomePage = () => {
+const HomePage = (props) => {
 
     const [ entry, setEntry ] = useState('');
     const [ searchTerm, setSearchTerm ] = useState('');
     const [ results, setResults ] = useState([]);
-    const [ display, setDisplay ] = useState(false);
 
     // perform a search with the IMDb API
     const fetchTitles = async (e) => {
@@ -30,13 +29,25 @@ const HomePage = () => {
         })
     }
 
+    // Add listing to profile
+    const addToProfile = (e, listing) => {
+        e.preventDefault();
+        axios.post(`http://localhost:5000/listing/save/${localStorage.getItem('userId')}`, {
+            title:listing.Title,
+            year:listing.Year,
+            type:listing.Type
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+
     return (
         <div>
             <section>
                 <Global />
             </section>
             <section>
-                <p className="search-text">Below you can use IMDb's public API to search for shows and movies! Once search results are listed, you can save a listing to your profile </p>
+                <p className="search-text">Below you can use IMDb's public API to search for shows and movies!</p>
             </section>
             <section>
                 <form 
@@ -49,10 +60,9 @@ const HomePage = () => {
                     value={entry}
                 />
                 <button onClick={(e) => {setSearchTerm(entry)}}>search</button>
-                <button onClick={() => {setDisplay(true)}}>display results</button>
                 </form>
                 <div className="search-results">
-                    { !display ? 
+                    { !results ? 
                     <section/>
                     :
                     results.map((listing, i) => (
@@ -62,8 +72,10 @@ const HomePage = () => {
                                 <h4>{listing.Title}</h4>
                                 <h5>{listing.Year}</h5>
                                 {listing.Poster === 'N/A' ? "" :
-                                <img src={listing.Poster} /> }
-                                <button className="addButton" >add</button>
+                                <img src={listing.Poster} alt={listing.Title}/> }
+                                <button 
+                                    className="addButton"
+                                    onClick={(e) => {addToProfile(e, listing)}}>add</button>
                         </div>
                     ))}
                 </div>

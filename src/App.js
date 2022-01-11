@@ -1,5 +1,5 @@
 // import function and style
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import LandingPage from './pages/LandingPage';
 import Signup from './pages/Signup';
@@ -38,13 +38,13 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={ 
-          localStorage.userId ? <Home /> : <Signup setUser={setUser} /> } />
+          localStorage.userId ? <Home user={user}/> : <Signup setUser={setUser} /> } />
 
         <Route path="/login" element={ 
-          localStorage.userId ? <Home /> : <Login setUser={setUser} /> } />
+          localStorage.userId ? <Home user={user}/> : <Login setUser={setUser} /> } />
 
         <Route path="/home" element={
-          localStorage.userId ? <Home /> : <Login setUser={setUser} /> } />
+          localStorage.userId ? <Home user={user}/> : <Login setUser={setUser} /> } />
       </Routes>
 
     </div>
