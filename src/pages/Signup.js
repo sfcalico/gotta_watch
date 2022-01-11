@@ -4,16 +4,18 @@ import axios from 'axios';
 const Signup = (props) => {
 
     // user info
-    const [ name, setName ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ bio, setBio ] = useState('');
 
     // call to local database to sign up user/add user to database
     const submitForm = async (e) => {
         e.preventDefault();
         try {
-            let response = await axios.post(`http://localhost:3001/users/signup`, { name, email, password})
+            let response = await axios.post(`http://localhost:5000/users/signup`, { email, password, bio })
             console.log(response);
-            localStorage.setItem('userId', response.data.newUser.id);
-            props.setUser(response.data.newUser);
+            localStorage.setItem('userId', response.data.user.id);
+            props.setUser(response.data.user);
         } catch (error) {
             console.log(error);
         }
@@ -23,16 +25,16 @@ const Signup = (props) => {
         <div>
             <form onSubmit={submitForm} className="suli-form" >
                 <div>
-                    <label htmlFor="name">Name: </label>
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                </div>
-                <div>
                     <label htmlFor="email">Email: </label>
                     <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="password">Password: </label>
                     <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
+                </div>
+                <div>
+                    <label htmlFor="bio">Write a quick sentence about yourself: </label>
+                    <input type="text" value={bio} onChange={(e) => setBio(e.target.value)} />
                 </div>
                 <div>
                     <button
