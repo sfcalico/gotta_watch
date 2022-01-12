@@ -2,7 +2,7 @@ import Global from "../components/Global";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Series = () => {
+const Series = (props) => {
     
     const [ shows, setShows ] = useState([]);
 
@@ -22,6 +22,32 @@ const Series = () => {
     useEffect(() => {
         fetchShows()
     }, [])
+
+    // Change listing to 'watched === true'
+    const haveSeen = async(titleId) => {
+        const userId = localStorage.getItem('userId');
+        try {
+            let response = await axios.put(`http://localhost:5000/lsitings/users/${titleId}/${userId}`, {
+                headers: {Authorization: userId }
+            })
+            fetchShows();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // Remove listing from page
+    const removeTitle = async(titleId) => {
+        const userId = localStorage.getItem('userId');
+        try {
+            let response = await axios.delete(`http://localhost:5000/listings/remove/${titleId}/${userId}`, {
+                headers: { Authorization: userId }
+            });
+            fetchShows();
+        } catch (error) {
+            console.log(error)
+        }
+    }
     
     return (
         <div>
@@ -41,8 +67,13 @@ const Series = () => {
                             <h4>{listing.title}</h4>
                             <h5>{listing.year}</h5>
                             <button
-                                className="watched-button">
+                                className="watched-button"
+                                onClick={() => {haveSeen(listing.id)}}>
                             watched</button>
+                            <button
+                                className="remove-button"
+                                onClick={() => {removeTitle(listing.id)}}>
+                            remove</button>  
                     </div>
                 ))
                 }

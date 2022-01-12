@@ -15,21 +15,25 @@ A site on which you can search for movies and shows from the IMDB API and save s
 
 ## MVP functionality
 - Users can sign up, login, and logout
-- Users can edit their bio, which displays on the home page
+- Users can edit their bio, which displays on the home page // stretch goal
 - Users can use the IMDB API to search for movies and series
 - Users can save listings, which will show up on their saved movies and saved series pages
 - On the saved movies and saved series pages, users can remove listings from their account
-- On the saved movies and saved series pages, users can push listings to their history page, which removes it from the "saved" pages
-- On the history page, users can remove listings in case they pushed them there by accident
+- On the saved movies and saved series pages, users can push listings to their watched page, which removes it from the "saved" pages
+- On the watched page, users can remove listings in case they pushed them there by accident
 
 ## HTTP Routes
-  post('/users/signup', ...)        // 1, signup user
-  post('/users/login', ...)         // 2, login user
-  post('/users/verify, ...)         // 3, verify user
-   put('/users/bio, ...)            // 4, update user's bio
-  post('/viewings/save/id', ...)    // 5, save listing to profile
-  post('/viewings/watch', ...)      // 6, move listing to history page
-delete('/viewings/remove/id', ...)  // 7, remove listing from profile
+  post('/users/signup', ...)                // 1, signup
+  post('/users/login', ...)                 // 2, login
+  post('/users/verify, ...)                 // 3, verify
+   put('/users/:id, ...)                     // 4, edit bio, stretch goal
+  post('/listings/save/id', ...)            // 5, save to profile
+delete('/listings/remove/id', ...)          // 7, remove from profile
+   get('/listings/users/:id/series)         // 8, shows to watch
+   get('/listings/users/:id/movies)         // 9, movies to watch
+   put('/listings/users/:id/seen)           // 10, push to watched page
+   get('listings/users/history/:id/series)  // 11, shows watched
+   get('listings/users/history/:id/movies)  // 11, movies watched
 
 ## Completion timeline
 - Finish Signup, Login, and backend server by EOD Monday

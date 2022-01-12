@@ -22,6 +22,29 @@ const Movies = () => {
     useEffect(() => {
         fetchMovies()
     }, [])
+
+    // Change listing to 'watched === true'
+    const haveSeen = async(titleId) => {
+        try {
+            let response = await axios.put(`http://localhost:5000/listings/users/${titleId}/seen`);
+            fetchMovies();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // Remove listing from page
+    const removeTitle = async(titleId) => {
+        const userId = localStorage.getItem('userId')
+        try {
+            let response = await axios.delete(`http://localhost:5000/listings/remove/${titleId}/${userId}`, {
+                headers: { Authorization: userId }
+            });
+            fetchMovies();
+        } catch (error) {
+            console.log(error)
+        }
+    }
     
     return (
         <div>
@@ -41,8 +64,13 @@ const Movies = () => {
                             <h4>{listing.title}</h4>
                             <h5>{listing.year}</h5>
                             <button
-                                className="watched-button">
+                                className="watched-button"
+                                onClick={() => {haveSeen(listing.id)}}>
                             watched</button>
+                            <button
+                                className="remove-button"
+                                onClick={() => {removeTitle(listing.id)}}>
+                            remove</button>  
                     </div>
                 ))
                 }

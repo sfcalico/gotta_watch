@@ -2,6 +2,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import LandingPage from './pages/LandingPage';
+import Watched from './pages/Watched';
 import Signup from './pages/Signup';
 import Series from './pages/Series';
 import Movies from './pages/Movies';
@@ -50,10 +51,14 @@ function App() {
           localStorage.userId ? <Home user={user}/> : <Login setUser={setUser} /> } />
 
         <Route path="/series" element={ 
-          localStorage.userId ? <Series /> : <Login setUser={setUser} /> } />
+          localStorage.userId ? <Series user={user}/> : <Login setUser={setUser} /> } />
         
         <Route path="/movies" element={ 
-          localStorage.userId ? <Movies /> : <Login setUser={setUser} /> } />
+          localStorage.userId ? <Movies user={user}/> : <Login setUser={setUser} /> } />
+
+        <Route path="/history" element={
+          localStorage.userId ? <Watched user={user}/> : <Login setUser={setUser} /> } />
+
       </Routes>
 
     </div>
