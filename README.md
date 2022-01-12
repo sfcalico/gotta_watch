@@ -1,4 +1,4 @@
-# Watch my stories
+# Gotta Watch
 
 ## Overview
 A site on which you can search for movies and shows from the IMDB API and save specific results to your profile. There are separate pages to view your saved movies and saved shows (i.e. series). After you have watched any of them, you can toggle that on the saved pages, which will remove them from that page and push it to a fourth page that lists out all the shows and movies you've seen.

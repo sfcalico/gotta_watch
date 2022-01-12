@@ -32,10 +32,12 @@ const HomePage = (props) => {
     // Add listing to profile
     const addToProfile = (e, listing) => {
         e.preventDefault();
-        axios.post(`http://localhost:5000/listing/save/${localStorage.getItem('userId')}`, {
+        const userId = localStorage.getItem('userId');
+        axios.post(`http://localhost:5000/listings/save/${props.user.id}`, {
             title:listing.Title,
             year:listing.Year,
-            type:listing.Type
+            type:listing.Type,
+            user_id:props.user.id
         }).catch((error) => {
             console.log(error)
         })
@@ -74,8 +76,9 @@ const HomePage = (props) => {
                                 {listing.Poster === 'N/A' ? "" :
                                 <img src={listing.Poster} alt={listing.Title}/> }
                                 <button 
-                                    className="addButton"
-                                    onClick={(e) => {addToProfile(e, listing)}}>add</button>
+                                    className="add-button"
+                                    onClick={(e) => {addToProfile(e, listing)}}>
+                                add</button>
                         </div>
                     ))}
                 </div>

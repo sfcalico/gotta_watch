@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import LandingPage from './pages/LandingPage';
 import Signup from './pages/Signup';
+import Series from './pages/Series';
+import Movies from './pages/Movies';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import axios from 'axios';
@@ -37,6 +39,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
+
         <Route path="/signup" element={ 
           localStorage.userId ? <Home user={user}/> : <Signup setUser={setUser} /> } />
 
@@ -45,6 +48,12 @@ function App() {
 
         <Route path="/home" element={
           localStorage.userId ? <Home user={user}/> : <Login setUser={setUser} /> } />
+
+        <Route path="/series" element={ 
+          localStorage.userId ? <Series /> : <Login setUser={setUser} /> } />
+        
+        <Route path="/movies" element={ 
+          localStorage.userId ? <Movies /> : <Login setUser={setUser} /> } />
       </Routes>
 
     </div>
