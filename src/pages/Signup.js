@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import env from 'react-dotenv';
 import axios from 'axios';
 
 const Signup = (props) => {
@@ -12,7 +13,7 @@ const Signup = (props) => {
     const submitForm = async (e) => {
         e.preventDefault();
         try {
-            let response = await axios.post(`http://localhost:5000/users/signup`, { email, password, bio })
+            let response = await axios.post(`${env.BACKEND_URL}/users/signup`, { email, password, bio })
             console.log(response);
             localStorage.setItem('userId', response.data.user.id);
             props.setUser(response.data.user);

@@ -1,5 +1,6 @@
-import Global from "../components/Global";
 import { useEffect, useState } from "react";
+import Global from "../components/Global";
+import env from 'react-dotenv';
 import axios from "axios";
 
 const Series = (props) => {
@@ -10,7 +11,7 @@ const Series = (props) => {
     const fetchShows = async () => {
         const userId = localStorage.getItem('userId')
         try {
-            let response = await axios.get(`http://localhost:5000/listings/users/${userId}/series`);
+            let response = await axios.get(`${env.BACKEND_URL}/listings/users/${userId}/series`);
             console.log(response);
             setShows(response.data.listings);
             console.log(shows);
@@ -26,7 +27,7 @@ const Series = (props) => {
     // Change listing to 'watched === true'
     const haveSeen = async(titleId) => {
         try {
-            await axios.put(`http://localhost:5000/listings/users/${titleId}/seen`);
+            await axios.put(`${env.BACKEND_URL}/listings/users/${titleId}/seen`);
             fetchShows();
         } catch (error) {
             console.log(error)
@@ -37,7 +38,7 @@ const Series = (props) => {
     const removeTitle = async(titleId) => {
         const userId = localStorage.getItem('userId');
         try {
-            await axios.delete(`http://localhost:5000/listings/remove/${titleId}/${userId}`, {
+            await axios.delete(`${env.BACKEND_URL}/listings/remove/${titleId}/${userId}`, {
                 headers: { Authorization: userId }
             });
             fetchShows();
