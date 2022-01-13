@@ -8,9 +8,9 @@ const GlobalHome = () => {
         <nav className="global">
             <div className='global-links'>
                 <br/>
-                <section className="title-card">Welcome to Oh My Gottawatch! </section>
+                <section className="title-card">Oh My Gottawatch! </section>
                 <br/>
-                <section>Check out your shows and movies below!</section>
+                <section>FInd and keep track of shows and movies you wanna watch!</section>
                     <br />
                 <section className="global-link">
                     <Link to="/home">Search Media</Link>
