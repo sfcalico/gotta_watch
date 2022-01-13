@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react'
-import Global from '../components/Global';
+import GlobalHome from '../components/GlobalHome';
 
 const HomePage = (props) => {
 
@@ -37,31 +37,35 @@ const HomePage = (props) => {
             title:listing.Title,
             year:listing.Year,
             type:listing.Type,
+            poster:listing.Poster,
             user_id:props.user.id
         }).catch((error) => {
             console.log(error)
         })
+        alert("Added to your Series/Movies page!")
     }
 
     return (
         <div>
             <section>
-                <Global />
+                <GlobalHome />
             </section>
             <section>
-                <p className="search-text">Below you can use IMDb's public API to search for shows and movies!</p>
+                <p className="search-text">Search for show and movie titles here!</p>
             </section>
             <section>
                 <form 
-                    onSubmit={(e) => {fetchTitles(e)}}
-                    className="IMDb-search">
+                    onSubmit={(e) => {fetchTitles(e)}}>
                 <input
+                    className="IMDb-search"
                     type="text"
-                    placeholder="search titles here"
+                    placeholder="type here"
                     onChange={(e) => {setEntry(e.target.value)}}
                     value={entry}
                 />
-                <button onClick={(e) => {setSearchTerm(entry)}}>search</button>
+                <button 
+                    className="IMDb-search"
+                    onClick={(e) => {setSearchTerm(entry)}}>search</button>
                 </form>
                 <div className="search-results">
                     { !results ? 

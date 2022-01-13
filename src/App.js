@@ -36,9 +36,11 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar user={user} setUser={setUser} />
+      <section className="home-sections">
+        <Navbar user={user} setUser={setUser} />
+      </section>
 
-      <Routes>
+      <Routes className="home-sections">
         <Route path="/" element={<LandingPage />} />
 
         <Route path="/signup" element={ 

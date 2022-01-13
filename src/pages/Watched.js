@@ -7,15 +7,17 @@ const Watched = () => {
     
     const [ shows, setShows ] = useState([]);
     const [ movies, setMovies ] = useState([]);
+    const [ showLen, setShowLen ] = useState();
+    const [ movieLen, setMovieLen ] = useState();
 
     // display watched shows on History page
     const fetchShows = async () => {
         const userId = localStorage.getItem('userId')
         try {
             let response = await axios.get(`http://localhost:5000/listings/users/history/${userId}/series`);
-            console.log(response);
-            setShows(response.data.listings);
-            console.log(shows);
+            setShows(response.data.series);
+            setShowLen(response.data.series.length)
+            console.log(shows, showLen);
         } catch(error) {
             console.log(error.message);
         }
@@ -26,11 +28,22 @@ const Watched = () => {
         const userId = localStorage.getItem('userId')
         try {
             let response = await axios.get(`http://localhost:5000/listings/users/history/${userId}/movies`);
-            console.log(response);
-            setMovies(response.data.listings);
-            console.log(movies);
+            setMovies(response.data.movies);
+            setMovieLen(response.data.movies.length)
+            console.log(movies, movieLen);
         } catch(error) {
             console.log(error.message);
+        }
+    }
+    
+    // Change listing to 'watched === false'
+    const notSeen = async(titleId) => {
+        try {
+            await axios.put(`http://localhost:5000/listings/users/${titleId}/notyet`);
+            fetchShows();
+            fetchMovies();
+        } catch (error) {
+            console.log(error)
         }
     }
     
@@ -43,44 +56,60 @@ const Watched = () => {
         fetchMovies()
     }, [])
 
+
     return (
         <div>
             <section>
                 <Global />
             </section>
-            <p>Look at all the shows and movies you've watched!! We're so proud! If you accidentally clicked 'watched' on your to-view pages, simply click the oops button and the title will be put back on the appropriate titles-to-view page</p>
+            <p className="media-text">Look at all the shows and movies you've watched!! We're so proud! <br/> <br/>
+            </p>
             <section className="watched-series">
+                <h4 className="list-title">{showLen} series:</h4>
                 { !shows ?
                 <section />
                 :
                 shows.map((listing, i) => (
-                    <div
-                        key={i}
-                        className="single-history">
-                            <h5>{listing.title}</h5>
-                            <h5>{listing.year}</h5>
-                            <button className="not-watched">
-                            remove</button>
-                    </div>
+                    <>
+                        <div
+                            key={i}
+                            className="single-history">
+                                <h5>{listing.title}</h5>
+                                <h5>{listing.year}</h5>
+                                <button 
+                                    className="not-watched"
+                                    onClick={() => {notSeen(listing.id)}}>
+                                nerp</button>
+                        </div>
+                    </>
                 ))
                 }
             </section>
+            <br/><br/>
             <section className="watched-movies">
-            { !movies ?
+                <h4 className="list-title">{movieLen} movies:</h4>
+                { !movies ?
                 <section />
                 :
                 movies.map((listing, i) => (
-                    <div
-                        key={i}
-                        className="single-history">
-                            <h5>{listing.title}</h5>
-                            <h5>{listing.year}</h5>
-                            <button className="not-watched">
-                            remove</button>
-                    </div>
+                    <>
+                        <div
+                            key={i}
+                            className="single-history">
+                                <h5>{listing.title}</h5>
+                                <h5>{listing.year}</h5>
+                                <button 
+                                    className="not-watched"
+                                    onClick={() => {notSeen(listing.id)}}>
+                                nerp</button>
+                        </div>
+                    </>
                 ))
                 }
             </section>
+            <span className="aside">
+                Do any of these still belong on the series or movies pages? Just click the 'nerp' button and you're set!
+            </span>
 
         </div>
     )

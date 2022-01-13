@@ -26,7 +26,7 @@ const Movies = () => {
     // Change listing to 'watched === true'
     const haveSeen = async(titleId) => {
         try {
-            let response = await axios.put(`http://localhost:5000/listings/users/${titleId}/seen`);
+            await axios.put(`http://localhost:5000/listings/users/${titleId}/seen`);
             fetchMovies();
         } catch (error) {
             console.log(error)
@@ -37,7 +37,7 @@ const Movies = () => {
     const removeTitle = async(titleId) => {
         const userId = localStorage.getItem('userId')
         try {
-            let response = await axios.delete(`http://localhost:5000/listings/remove/${titleId}/${userId}`, {
+            await axios.delete(`http://localhost:5000/listings/remove/${titleId}/${userId}`, {
                 headers: { Authorization: userId }
             });
             fetchMovies();
@@ -52,7 +52,7 @@ const Movies = () => {
                 <Global />
             </section>
 
-            <p>Here is your list of movies to watch</p>
+            <p className="media-text">Here is your list of movies to watch...</p>
             <section className="movies-to-watch">
                 { !movies ?
                 <section/>
@@ -61,14 +61,14 @@ const Movies = () => {
                     <div
                         key={i}
                         className="single-show">
-                            <h4>{listing.title}</h4>
+                            <h3>{listing.title}</h3>
                             <h5>{listing.year}</h5>
                             <button
-                                className="watched-button"
+                                className="listing-button"
                                 onClick={() => {haveSeen(listing.id)}}>
                             watched</button>
                             <button
-                                className="remove-button"
+                                className="listing-button"
                                 onClick={() => {removeTitle(listing.id)}}>
                             remove</button>  
                     </div>

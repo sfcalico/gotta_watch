@@ -34,6 +34,7 @@ delete('/listings/remove/id', ...)          // 7, remove from profile
    put('/listings/users/:id/seen)           // 10, push to watched page
    get('listings/users/history/:id/series)  // 11, shows watched
    get('listings/users/history/:id/movies)  // 11, movies watched
+   put('/listings/users/:id/notyet)
 
 ## Completion timeline
 - Finish Signup, Login, and backend server by EOD Monday

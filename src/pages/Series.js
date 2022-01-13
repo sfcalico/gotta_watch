@@ -25,11 +25,8 @@ const Series = (props) => {
 
     // Change listing to 'watched === true'
     const haveSeen = async(titleId) => {
-        const userId = localStorage.getItem('userId');
         try {
-            let response = await axios.put(`http://localhost:5000/lsitings/users/${titleId}/${userId}`, {
-                headers: {Authorization: userId }
-            })
+            await axios.put(`http://localhost:5000/listings/users/${titleId}/seen`);
             fetchShows();
         } catch (error) {
             console.log(error)
@@ -40,7 +37,7 @@ const Series = (props) => {
     const removeTitle = async(titleId) => {
         const userId = localStorage.getItem('userId');
         try {
-            let response = await axios.delete(`http://localhost:5000/listings/remove/${titleId}/${userId}`, {
+            await axios.delete(`http://localhost:5000/listings/remove/${titleId}/${userId}`, {
                 headers: { Authorization: userId }
             });
             fetchShows();
@@ -55,7 +52,7 @@ const Series = (props) => {
                 <Global />
             </section>
 
-            <p>Here is your list of shows to watch</p>
+            <p className="media-text">Here is your list of shows to watch...</p>
             <section className="shows-to-watch">
                 { !shows ?
                 <section/>
@@ -64,14 +61,14 @@ const Series = (props) => {
                     <div
                         key={i}
                         className="single-show">
-                            <h4>{listing.title}</h4>
+                            <h3>{listing.title}</h3>
                             <h5>{listing.year}</h5>
                             <button
-                                className="watched-button"
+                                className="listing-button"
                                 onClick={() => {haveSeen(listing.id)}}>
                             watched</button>
                             <button
-                                className="remove-button"
+                                className="listing-button"
                                 onClick={() => {removeTitle(listing.id)}}>
                             remove</button>  
                     </div>
