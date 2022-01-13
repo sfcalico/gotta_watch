@@ -15,7 +15,7 @@ const Watched = () => {
     const fetchShows = async () => {
         const userId = localStorage.getItem('userId')
         try {
-            let response = await axios.get(`${env.BACKEND_URL}/listings/users/history/${userId}/series`);
+            let response = await axios.get(`${env.REACT_APP_BACKEND_URL}/listings/users/history/${userId}/series`);
             setShows(response.data.series);
             setShowLen(response.data.series.length)
             console.log(shows, showLen);
@@ -28,7 +28,7 @@ const Watched = () => {
     const fetchMovies = async () => {
         const userId = localStorage.getItem('userId')
         try {
-            let response = await axios.get(`${env.BACKEND_URL}/listings/users/history/${userId}/movies`);
+            let response = await axios.get(`${env.REACT_APP_BACKEND_URL}/listings/users/history/${userId}/movies`);
             setMovies(response.data.movies);
             setMovieLen(response.data.movies.length)
             console.log(movies, movieLen);
@@ -40,7 +40,7 @@ const Watched = () => {
     // Change listing to 'watched === false'
     const notSeen = async(titleId) => {
         try {
-            await axios.put(`${env.BACKEND_URL}/listings/users/${titleId}/notyet`);
+            await axios.put(`${env.REACT_APP_BACKEND_URL}/listings/users/${titleId}/notyet`);
             fetchShows();
             fetchMovies();
         } catch (error) {

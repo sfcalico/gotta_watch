@@ -10,7 +10,7 @@ const Login = (props) => {
     const submitForm = async (e) => {
         e.preventDefault();
         try {
-            let response = await axios.post(`${env.BACKEND_URL}/users/login`, { email, password })
+            let response = await axios.post(`${env.REACT_APP_BACKEND_URL}/users/login`, { email, password })
             console.log(response);
             localStorage.setItem('userId', response.data.user.id);
             props.setUser(response.data.user);
