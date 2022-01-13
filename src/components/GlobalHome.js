@@ -10,7 +10,7 @@ const GlobalHome = () => {
                 <br/>
                 <section className="title-card">Oh My Gottawatch! </section>
                 <br/>
-                <section>FInd and keep track of shows and movies you wanna watch!</section>
+                <section>Find and keep track of shows and movies you wanna watch!</section>
                     <br />
                 <section className="global-link">
                     <Link to="/home">Search Media</Link>

@@ -35,7 +35,9 @@ const Signup = (props) => {
                         onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div>
-                    <label htmlFor="password">Password: </label>
+                    <label
+                        htmlFor="password"
+                        className="label">Password: </label>
                     <input
                         value={password}
                         type="password"

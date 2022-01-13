@@ -32,7 +32,9 @@ const Login = (props) => {
                         onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div>
-                    <label htmlFor="password">Password: </label>
+                    <label 
+                        htmlFor="password"
+                        className="label">Password: </label>
                     <input
                         type="password"
                         value={password}
