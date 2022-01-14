@@ -13,7 +13,7 @@ const GlobalHome = () => {
                 <section>Find and keep track of shows and movies you wanna watch!</section>
                     <br />
                 <section className="global-link">
-                    <Link to="/home">Search Media</Link>
+                    <Link to="/home">Media Search</Link>
                 </section>
                     <br />
                 <section className='global-link'>

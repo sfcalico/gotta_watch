@@ -12,7 +12,7 @@ const Global = () => {
                     <hr/>
                     <br />
                 <section className="global-link">
-                    <Link to="/home">Search Media</Link>
+                    <Link to="/home">Media Search</Link>
                 </section>
                     <br />
                 <section className='global-link'>
